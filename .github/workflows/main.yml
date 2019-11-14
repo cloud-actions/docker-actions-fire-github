@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      env:
+        GITHUB_USER: cloud-actions
+        GITHUB_REPO: python-actions-github
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        IMAGE_NAME: 191100-fire
+      run: |
+        docker login docker.pkg.github.com -u cloud-actions -p "$GITHUB_TOKEN" 
+        TAG=$(date +%y%m%d)"-${{github.sha}}"
+        docker build . --file Dockerfile --tag docker.pkg.github.com/${GITHUB_USER}/${GITHUB_REPO}/${IMAGE_NAME}:${TAG}
+        docker push docker.pkg.github.com/${GITHUB_USER}/${GITHUB_REPO}/${IMAGE_NAME}:${TAG}
+
