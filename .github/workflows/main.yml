@@ -19,6 +19,6 @@ jobs:
       run: |
         docker login docker.pkg.github.com -u cloud-actions -p "$GITHUB_TOKEN" 
         TAG=$(date +%y%m%d)"-${{github.sha}}"
-        docker build . --file Dockerfile --tag docker.pkg.github.com/${GITHUB_USER}/${GITHUB_REPO}/${IMAGE_NAME}:$VERSION
-        docker push docker.pkg.github.com/${GITHUB_USER}/${GITHUB_REPO}/${IMAGE_NAME}:$VERSION
+        docker build . --file Dockerfile --tag docker.pkg.github.com/${GITHUB_USER}/${GITHUB_REPO}/${IMAGE_NAME}:${TAG}
+        docker push docker.pkg.github.com/${GITHUB_USER}/${GITHUB_REPO}/${IMAGE_NAME}:${TAG}
 
