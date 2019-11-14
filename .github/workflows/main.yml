@@ -17,7 +17,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         IMAGE_NAME: 191100-fire
       run: |
-        cd 5-github-actions/
         docker login docker.pkg.github.com -u cloud-actions -p "$GITHUB_TOKEN" 
         TAG=$(date +%y%m%d)"-${{github.sha}}"
         docker build . --file Dockerfile --tag docker.pkg.github.com/${GITHUB_USER}/${GITHUB_REPO}/${IMAGE_NAME}:$VERSION
